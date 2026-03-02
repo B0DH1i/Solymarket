@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-ogp-key" content="27c7a0df-8845-4e43-af83-c4c03a9a4d30" />
+    <title>Solymarket - Solana Price Prediction Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://sdk.play.fun"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <svg class="sol-logo" viewBox="0 0 397.7 311.7" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="solGradient" x1="360.8791" y1="351.4553" x2="141.213" y2="-69.2936" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#14F195"/>
+                                <stop offset="0.5" stop-color="#9945FF"/>
+                                <stop offset="1" stop-color="#9945FF"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M64.6,237.9c2.4-2.4,5.7-3.8,9.2-3.8h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5c-5.8,0-8.7-7-4.6-11.1L64.6,237.9z" fill="url(#solGradient)"/>
+                        <path d="M64.6,3.8C67.1,1.4,70.4,0,73.8,0h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5c-5.8,0-8.7-7-4.6-11.1L64.6,3.8z" fill="url(#solGradient)"/>
+                        <path d="M333.1,120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8,0-8.7,7-4.6,11.1l62.7,62.7c2.4,2.4,5.7,3.8,9.2,3.8h317.4c5.8,0,8.7-7,4.6-11.1L333.1,120.1z" fill="url(#solGradient)"/>
+                    </svg>
+                    <h1 class="game-title">Solymarket</h1>
+                </div>
+                
+                <div class="score-board">
+                    <div class="score-item">
+                        <span class="label">Score:</span>
+                        <span class="value" id="score">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">Win Rate:</span>
+                        <span class="value" id="winRate">0%</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="label">Total Games:</span>
+                        <span class="value" id="totalGames">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- Live Chart -->
+            <div class="chart-container" id="chartContainer">
+                <canvas id="priceChart"></canvas>
+                <div class="chart-overlay" id="chartOverlay">
+                    <div class="start-line" id="startLine"></div>
+                    <div class="prediction-badge" id="predictionBadge"></div>
+                </div>
+            </div>
+
+            <div class="game-status" id="gameStatus">
+                <p>Ready to play! Make your prediction.</p>
+            </div>
+
+            <div class="timer-container">
+                <div class="timer" id="timer">
+                    <span class="timer-label">Time Left</span>
+                    <span class="timer-value" id="timerValue">5</span>
+                </div>
+            </div>
+
+            <div class="prediction-buttons" id="predictionButtons">
+                <button class="btn btn-down" id="btnDown" onclick="makePrediction('down')">
+                    <span class="arrow">↓</span>
+                    <span>DOWN</span>
+                    <span class="multiplier">2x</span>
+                </button>
+                <button class="btn btn-up" id="btnUp" onclick="makePrediction('up')">
+                    <span class="arrow">↑</span>
+                    <span>UP</span>
+                    <span class="multiplier">2x</span>
+                </button>
+            </div>
+
+            <div class="result-display" id="resultDisplay" style="display: none;">
+                <div class="result-content">
+                    <div class="result-animation" id="resultAnimation"></div>
+                    <h2 id="resultTitle"></h2>
+                    <p id="resultMessage"></p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built with PlayFun SDK | Live Binance Data</p>
+        </footer>
+    </div>
+
+    <!-- Confetti for wins -->
+    <canvas id="confetti"></canvas>
+
+    <script src="game.js"></script>
+</body>
+</html>
