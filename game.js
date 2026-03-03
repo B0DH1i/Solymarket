@@ -61,7 +61,7 @@ const BINANCE_WS = 'wss://stream.binance.com:9443/ws/solusdt@trade';
 let ws = null;
 
 // Start when page loads
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     createParticles();
     initChart();
     initPlayFunSDK(); // Initialize PlayFun SDK
@@ -563,7 +563,7 @@ function endRound() {
     showRoundResult(participated, won, priceDiff, changePercent);
 }
 
-// Save accumulated points to PlayFun (called on page unload)
+// Save accumulated points to PlayFun
 async function savePointsToPlayFun() {
     if (!sdkReady || !sdk) {
         console.log('⚠️ PlayFun SDK not ready');
@@ -571,11 +571,12 @@ async function savePointsToPlayFun() {
     }
     
     try {
-        console.log('💾 Saving accumulated points to PlayFun...');
-        await sdk.endGame(); // This saves all accumulated points
-        console.log('✅ Points saved to PlayFun!');
+        console.log('💾 Saving points to PlayFun...');
+        await sdk.endGame(); // SDK automatically handles login if needed
+        console.log('✅ Points saved successfully!');
     } catch (error) {
-        console.error('❌ Error saving points to PlayFun:', error);
+        console.error('❌ Error saving points:', error);
+        // Error is already shown in PlayFun modal
     }
 }
 
