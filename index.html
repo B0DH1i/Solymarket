@@ -60,22 +60,22 @@
                 <p>Ready to play! Make your prediction.</p>
             </div>
 
-            <div class="timer-container">
-                <div class="timer" id="timer">
-                    <span class="timer-label">Time Left</span>
-                    <span class="timer-value" id="timerValue">5</span>
-                </div>
-            </div>
-
             <div class="prediction-buttons" id="predictionButtons">
                 <button class="btn btn-down" id="btnDown" onclick="makePrediction('down')">
                     <span class="arrow">↓</span>
-                    <span>DOWN</span>
+                    <span>SHORT</span>
                     <span class="multiplier">2x</span>
                 </button>
+                
+                <div class="timer-container">
+                    <div class="timer" id="timer">
+                        <span class="timer-value" id="timerValue">5</span>
+                    </div>
+                </div>
+                
                 <button class="btn btn-up" id="btnUp" onclick="makePrediction('up')">
                     <span class="arrow">↑</span>
-                    <span>UP</span>
+                    <span>LONG</span>
                     <span class="multiplier">2x</span>
                 </button>
             </div>
