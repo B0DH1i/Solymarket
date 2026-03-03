@@ -44,7 +44,7 @@ function initPlayFunSDK() {
             console.log('❌ Failed to save points');
         });
 
-        sdk.init({ gameId: 'solymarket' })
+        sdk.init({ gameId: 'b4bc5629-fbfe-4adc-86b4-b1ebfd706fca' })
             .then(() => {
                 console.log('✅ PlayFun SDK Initialized');
             })
