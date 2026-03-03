@@ -24,9 +24,16 @@ let sdkReady = false;
 // Initialize PlayFun SDK
 function initPlayFunSDK() {
     try {
+        // Check if OpenGameSDK is available
+        if (typeof OpenGameSDK === 'undefined') {
+            console.error('❌ OpenGameSDK not loaded. Check if SDK script is loaded.');
+            return;
+        }
+
         sdk = new OpenGameSDK({
             ui: {
                 usePointsWidget: true,
+                useCustomUI: false,
                 theme: 'dark'
             }
         });
@@ -36,23 +43,32 @@ function initPlayFunSDK() {
             sdkReady = true;
         });
 
-        sdk.on('SavePointsSuccess', () => {
-            console.log('✅ Points saved successfully!');
+        sdk.on('SavePointsSuccess', (data) => {
+            console.log('✅ Points saved successfully!', data);
         });
 
-        sdk.on('SavePointsFailed', () => {
-            console.log('❌ Failed to save points');
+        sdk.on('SavePointsFailed', (error) => {
+            console.log('❌ Failed to save points:', error);
         });
 
+        sdk.on('LoginSuccess', () => {
+            console.log('✅ User logged in successfully');
+        });
+
+        sdk.on('LoginFailed', (error) => {
+            console.log('❌ Login failed:', error);
+        });
+
+        // Initialize with gameId
         sdk.init({ gameId: 'b4bc5629-fbfe-4adc-86b4-b1ebfd706fca' })
             .then(() => {
-                console.log('✅ PlayFun SDK Initialized');
+                console.log('✅ PlayFun SDK Initialized with Game ID: b4bc5629-fbfe-4adc-86b4-b1ebfd706fca');
             })
             .catch((error) => {
                 console.error('❌ PlayFun SDK Init Error:', error);
             });
     } catch (error) {
-        console.error('❌ PlayFun SDK not available:', error);
+        console.error('❌ PlayFun SDK Error:', error);
     }
 }
 
@@ -527,8 +543,8 @@ function endRound() {
                     sdk.addPoints(1); // Add 1 point for winning
                     console.log('✅ Added 1 point (local)');
                     
-                    // Save immediately after winning
-                    savePointsToPlayFun();
+                    // Save immediately after winning with small delay
+                    setTimeout(() => savePointsToPlayFun(), 100);
                 } catch (error) {
                     console.error('❌ Error adding points:', error);
                 }
@@ -544,8 +560,8 @@ function endRound() {
                     sdk.addPoints(1); // Add 1 point for winning
                     console.log('✅ Added 1 point (local)');
                     
-                    // Save immediately after winning
-                    savePointsToPlayFun();
+                    // Save immediately after winning with small delay
+                    setTimeout(() => savePointsToPlayFun(), 100);
                 } catch (error) {
                     console.error('❌ Error adding points:', error);
                 }
@@ -572,11 +588,12 @@ async function savePointsToPlayFun() {
     
     try {
         console.log('💾 Saving points to PlayFun...');
-        await sdk.endGame(); // SDK automatically handles login if needed
-        console.log('✅ Points saved successfully!');
+        const result = await sdk.endGame(); // SDK automatically handles login if needed
+        console.log('✅ Points saved successfully!', result);
     } catch (error) {
         console.error('❌ Error saving points:', error);
-        // Error is already shown in PlayFun modal
+        // Show user-friendly message
+        showNotification('Failed to save points. Please try again.', 'error');
     }
 }
 
