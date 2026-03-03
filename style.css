@@ -550,6 +550,32 @@ footer {
     border-top: 1px solid var(--glass-border);
 }
 
+footer p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.x-link {
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.x-logo {
+    width: 16px;
+    height: 16px;
+    fill: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.x-link:hover .x-logo {
+    fill: #ffffff;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(153, 69, 255, 0.6));
+}
+
 /* Confetti Canvas */
 #confetti {
     position: fixed;
